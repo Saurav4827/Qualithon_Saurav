@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="Default test(failed)">
+    <classes>
+      <class name="QT.BotRunner">
+        <methods>
+          <include name="T004_VideoPlayer"/>
+          <include name="T007_Captcha"/>
+          <include name="T002_StartTreasure"/>
+          <include name="QualithonStart"/>
+          <include name="T003_C1_Proceed"/>
+          <include name="T005_CrystalMaze"/>
+          <include name="T009_ThanksScreen"/>
+          <include name="T001_EnterQulaithon"/>
+          <include name="T008_WebSocket"/>
+          <include name="T006_Maps"/>
+        </methods>
+      </class> <!-- QT.BotRunner -->
+    </classes>
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

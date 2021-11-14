@@ -1,0 +1,63 @@
+EnterDoor:
+ By: xpath
+ locator: //img[@src='/static/door.png']
+StartTreasure:
+ By: id
+ locator: "start"
+C1_Proceed:
+ By: xpath
+ locator: //button[text()='Proceed']
+C2_VideoTitle:
+ By: css
+ locator: span.card-title>h2
+Play_Norm:
+ By: xpath
+ locator: //button[@aria-label='Play']
+Video:
+ By: xpath
+ locator: //video
+Mute_Norm:
+ By: xpath
+ locator: //button[@title="Mute (m)"]
+ArrowForward:
+ By: xpath
+ locator: //i[text()='arrow_forward']
+ArrowBack:
+ By: xpath
+ locator: //i[text()='arrow_back']
+ArrowDown:
+ By: xpath
+ locator: //i[text()='arrow_downward']
+Arrowupward:
+ By: xpath
+ locator: //i[text()='arrow_upward']
+CrystalMazeSubmit:
+ By: id
+ locator: 'crystalMazeFormSubmit'
+CrystalMaze_y8:
+ By: css
+ locator: td.x0.y8.deep-purple
+CrystalMaze_y2:
+ By: css
+ locator: td.x0.y2.deep-purple
+Map:
+ By: id
+ locator: 'OpenLayers_Layer_Vector_25_svgRoot'
+Captcha:
+ By: css
+ locator: img.btn.black
+CaptchaText:
+ By: id
+ locator: 'notABotCaptchaResponse'
+SubmitCaptcha:
+ By: id
+ locator: notABotCaptchaSubmit
+SocketMessage:
+ By: css
+ locator: div.yellow.lighten-3
+SocketSubmit:
+ By: id
+ locator: socketGateMessage
+Thanks:
+ By: css
+ locator: .card-title>h3
