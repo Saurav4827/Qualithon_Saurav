@@ -6,7 +6,9 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
@@ -55,7 +57,7 @@ import jakarta.websocket.Session;
 public class Bot_TreasureSolver {
 	public static WebDriver driver;
 	public static String socketmsg;
-	public String Rcvdmsg;
+	public static String Rcvdmsg;
 	Bot_TreasureHelper btHelper = new Bot_TreasureHelper();
 
 	public void LaunchQualithonWebApp() {
@@ -168,7 +170,7 @@ public class Bot_TreasureSolver {
 		driver.switchTo().frame("aVideoPlayer");
 		Actions actions = new Actions(driver);
 		element("Play_Norm").click();
-		btHelper.Wait(15);
+		btHelper.Wait(10);
 		actions.moveToElement(element("Video"));
 		actions.perform();
 		element("Mute_Norm").click();
@@ -300,19 +302,26 @@ public class Bot_TreasureSolver {
 	  public void onOpen(Session session) {
 	    System.out.println ("--- Connected " + session.getId());
 	    try {
-//	    	element("SocketMessage").getText().trim()
-	      session.getBasicRemote().sendText("5a3f727aa2dbdffcadb0bfbaa27ac2145aabccd20b25b27652a9c817d4458eb4.1636879761.socket_gate.c74a625a-f3c6-40d4-887a-f934d74cc5b5");
+	    	System.out.println(element("SocketMessage").getText().trim());
+	      session.getBasicRemote().sendText(element("SocketMessage").getText().trim());
 	    } catch (IOException e) {
 	      e.printStackTrace();
 	    }
 	  }
 		
 	  @OnMessage
-	  public String onMessage(String message, Session session) {
+	  public String onMessage(String message, Session session) throws InterruptedException {
 	    BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
 	    try {
-	    	Rcvdmsg=message;
+	      set_msg(message);
 	      System.out.println ("--- Received " + message);
+	      try{    
+	           FileWriter fw=new FileWriter("src/test/resources/data.txt");    
+	           fw.write(message);    
+	           fw.close();    
+	          }catch(Exception e){System.out.println(e);}    
+	          System.out.println("Success...");    
+	       
 	      String userInput = bufferRead.readLine();
 	      return userInput;
 	    } catch (IOException e) {
@@ -325,24 +334,39 @@ public class Bot_TreasureSolver {
 	    System.out.println("--- Session: " + session.getId());
 	    System.out.println("--- Closing because: " + closeReason);
 	  }
-		
+	  
+	  public void set_msg(String Rcvdmsg)
+	  {
+		  this.Rcvdmsg=Rcvdmsg;
+	  }
 	  
 
-	public void WebSocket() throws IOException, jakarta.websocket.DeploymentException {
+	public void WebSocket() throws IOException, jakarta.websocket.DeploymentException, InterruptedException {
 		 ClientManager client = ClientManager.createClient();
 		    try {
 		      URI uri = new URI("ws://54.80.137.197:5001");
 		      client.connectToServer(Bot_TreasureSolver.class, uri);
-		      while(true) {}
+
 		    } catch (URISyntaxException e) {
 		      e.printStackTrace();
 		    }
-		 element("SocketMessage").sendKeys(Rcvdmsg);
-		 element("SocketSubmit").click();
+		    
+		 
 	}
 
-	public String ThanksScreen() throws IOException {
-		 return element("Thanks").getText();
+	public String Submit() throws IOException, InterruptedException {
+		BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/data.txt"));
+	    String currentLine = reader.readLine();
+	    reader.close();
+	
+		element("SocketSubmit").sendKeys(currentLine);
+		element("SocketSubmit").clear();
+		reader = new BufferedReader(new FileReader("src/test/resources/data.txt"));
+		currentLine = reader.readLine();
+	    reader.close();
+		element("SocketSubmit").sendKeys(currentLine);
+		element("ScketbuttonSubmit").click();
+		return element("Thanks").getText();
 	}
 	
 	

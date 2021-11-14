@@ -58,6 +58,9 @@ SocketMessage:
 SocketSubmit:
  By: id
  locator: socketGateMessage
+ScketbuttonSubmit:
+ By: xpath
+ locator: //button[text()='Submit']
 Thanks:
  By: css
  locator: .card-title>h3

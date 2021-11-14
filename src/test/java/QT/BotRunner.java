@@ -68,10 +68,11 @@ public class BotRunner {
 	}
 	
 	@Test
-	public void T009_ThanksScreen() throws IOException
+	public void T009_ThanksScreen() throws IOException, InterruptedException
 	{
+	  btSolver.Submit();
 		
-		Assert.assertEquals(btSolver.ThanksScreen(),"Congratulations!! You Found the Treasure");
+//		Assert.assertEquals(btSolver.Submit(),"Congratulations!! You Found the Treasure");
 		
 	}
 
